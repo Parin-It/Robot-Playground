@@ -1,9 +1,17 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage("Hello"){
-            steps{
-                sh "robot TestCase.robot"
+    stages {
+        stage('Check Robot Installation') {
+            steps {
+                sh '''
+                echo $PATH
+                python -m pip show robotframework
+                '''
+            }
+        }
+        stage('Hello') {
+            steps {
+                sh 'robot TestCase.robot'
             }
         }
     }
