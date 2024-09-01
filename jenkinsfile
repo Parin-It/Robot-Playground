@@ -1,14 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Check Python Installation') {
-            steps {
-                sh 'python3 --version'
-            }
-        }
         stage('Hello') {
             steps {
                 sh 'robot TestCase.robot'
+                    robo(
+                        outputPath: './',
+                        outputFileName: 'output.xml',
+                        reportFileName: 'report.html',
+                        logFileName: 'log.html',
+                        disableArchiveOutput: false,
+                        passThreshold: 100.0,
+                        unstableThreshold: 100.0,
+                        otherFiles: '*.png,*.jpg',
+                        onlyCritical: false
+                    )
             }
         }
     }
