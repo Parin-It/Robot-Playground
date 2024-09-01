@@ -1,12 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Check Robot Installation') {
+        stage('Check Python Installation') {
             steps {
-                sh '''
-                echo $PATH
-                python -m pip show robotframework
-                '''
+                sh 'python3 --version'
             }
         }
         stage('Hello') {
