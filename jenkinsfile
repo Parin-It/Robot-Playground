@@ -1,0 +1,10 @@
+pipline{
+    agent any
+    stages{
+        stage("Hello"){
+            steps{
+                sh "robot TestCase.robot"
+            }
+        }
+    }
+}
