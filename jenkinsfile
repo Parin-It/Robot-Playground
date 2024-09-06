@@ -1,14 +1,17 @@
 pipeline{
     agent any
 
-    stages('Running Test'){
-        steps{
-            script{
-                common = load "common.groovy"
-                common.updateGithubStatus("pending")
-                echo "test"
+    stages{
+        stage('Running Test'){
+            steps{
+                script{
+                    common = load "common.groovy"
+                    common.updateGithubStatus("pending")
+                    echo "test"
+                }
             }
         }
+
 
         post{
             always{
@@ -22,5 +25,4 @@ pipeline{
             }
         }
     }
-
 }
