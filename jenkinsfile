@@ -5,17 +5,19 @@ pipeline{
         stage('Running Test'){
             steps{
                 sh "robot -d result TestCase.robot"
-                    robot(
-                        outputPath: './result',
-                        outputFileName: 'output.xml',
-                        reportFIlename: 'report.html',
-                        logFileName: 'log.html'
-                        disableArchiveOutput: false,
-                        passThreshold: 100.0,
-                        unstableThreshold: 100.0,
-                        otherFiles: '*.png,*.jpg',
-                        onlyCritical: false
-                    )
+
+                robot(
+                    outputPath: './result',
+                    outputFileName: 'output.xml',
+                    reportFilename: 'report.html',
+                    logFileName: 'log.html',
+                    disableArchiveOutput: false,
+                    passThreshold: 100.0,
+                    unstableThreshold: 100.0,
+                    otherFiles: '*.png,*.jpg',
+                    onlyCritical: false
+                )
+                
                 script{
                     common = load "common.groovy"
                     common.updateGithubStatus("pending")
