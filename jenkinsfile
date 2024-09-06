@@ -1,8 +1,8 @@
 pipeline{
     agent any
 
-    stage('Running Test'){
-        step{
+    stages('Running Test'){
+        steps{
             script{
                 common = load "common.groovy"
                 common.updateGithubStatus("pending")
