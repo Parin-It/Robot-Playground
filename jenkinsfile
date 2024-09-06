@@ -3,7 +3,7 @@ pipeline{
 
     stages{
         stage('Running Test'){
-            steps{
+                        steps{
                 script{
                     common = load "common.groovy"
                     common.updateGithubStatus("pending")
@@ -11,18 +11,18 @@ pipeline{
                 }
             }
         }
+    }
 
-
-        post{
-            always{
-                script{
-                    if("${currentBuild.currentResult}" == 'SUCCESS'){
-                        common.updateGithubStatus("success")
-                    }else{
-                        common.updateGithubStatus("failure")
-                    }
+    post{
+        always{
+            script{
+                if("${currentBuild.currentResult}" == 'SUCCESS'){
+                    common.updateGithubStatus("success")
+                }else{
+                    common.updateGithubStatus("failure")
                 }
             }
         }
     }
+
 }
