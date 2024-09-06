@@ -1,10 +1,16 @@
-pipeline{
+pipeline {
     agent any
 
-    stages{
-        stage('Running Test'){
-            steps{
-                sh "robot -d result TestCase.robot"
+    stages {
+        stage('Running Test') {
+            steps {
+                script {
+                    common = load 'common.groovy'
+                    common.updateGithubStatus('pending')
+                    echo 'test'
+                }
+
+                sh 'robot -d result TestCase.robot'
 
                 robot(
                     outputPath: './result',
@@ -17,23 +23,17 @@ pipeline{
                     otherFiles: '*.png,*.jpg',
                     onlyCritical: false
                 )
-
-                script{
-                    common = load "common.groovy"
-                    common.updateGithubStatus("pending")
-                    echo "test"
-                }
             }
+        }
+    }
 
-            post{
-                always{
-                    script{
-                        if("${currentBuild.currentResult}" == 'SUCCESS'){
-                            common.updateGithubStatus("success")
-                        }else{
-                            common.updateGithubStatus("failure")
-                        }
-                    }
+    post {
+        always {
+            script {
+                if ("${currentBuild.currentResult}" == 'SUCCESS') {
+                            common.updateGithubStatus('success')
+                        }else {
+                            common.updateGithubStatus('failure')
                 }
             }
         }
