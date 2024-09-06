@@ -24,19 +24,18 @@ pipeline{
                     echo "test"
                 }
             }
-        }
-    }
 
-    post{
-        always{
-            script{
-                if("${currentBuild.currentResult}" == 'SUCCESS'){
-                    common.updateGithubStatus("success")
-                }else{
-                    common.updateGithubStatus("failure")
+            post{
+                always{
+                    script{
+                        if("${currentBuild.currentResult}" == 'SUCCESS'){
+                            common.updateGithubStatus("success")
+                        }else{
+                            common.updateGithubStatus("failure")
+                        }
+                    }
                 }
             }
         }
     }
-
 }
