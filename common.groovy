@@ -1,5 +1,5 @@
 def updateGithubStatus(state) {
-    withCredentials([usernamePassword(credentialId: 'github_dryrun_experiment', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+    withCredentials([usernamePassword(credentialsId: 'github_dryrun_experiment', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
         sh """
             curl --location 'https://api.github.com/repos/${USER}/Robot-Playground/statuses/${GIT_COMMIT}' \
                 --header 'Content-Type: application/json' \
