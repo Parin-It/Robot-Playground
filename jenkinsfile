@@ -9,26 +9,25 @@ pipeline {
                     common.updateGithubStatus('pending')
                     echo 'test'
                 }
-
                 sh 'robot -d result TestCase.robot'
-
-                robot(
-                    outputPath: './result',
-                    outputFileName: 'output.xml',
-                    reportFileName: 'report.html',
-                    logFileName: 'log.html',
-                    disableArchiveOutput: false,
-                    passThreshold: 100.0,
-                    unstableThreshold: 100.0,
-                    otherFiles: '*.png,*.jpg',
-                    onlyCritical: false
-                )
             }
         }
     }
 
     post {
         always {
+            robot(
+                outputPath: './result',
+                outputFileName: 'output.xml',
+                reportFileName: 'report.html',
+                logFileName: 'log.html',
+                disableArchiveOutput: false,
+                passThreshold: 100.0,
+                unstableThreshold: 100.0,
+                otherFiles: '*.png,*.jpg',
+                onlyCritical: false
+            )
+
             script {
                 if ("${currentBuild.currentResult}" == 'SUCCESS') {
                             common.updateGithubStatus('success')
