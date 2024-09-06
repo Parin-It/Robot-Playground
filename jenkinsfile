@@ -1,21 +1,26 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage('Hello') {
-            steps {
-                sh 'robot TestCase.robot'
-                    robot(
-                        outputPath: './',
-                        outputFileName: 'output.xml',
-                        reportFileName: 'report.html',
-                        logFileName: 'log.html',
-                        disableArchiveOutput: false,
-                        passThreshold: 100.0,
-                        unstableThreshold: 100.0,
-                        otherFiles: '*.png,*.jpg',
-                        onlyCritical: false
-                    )
+
+    stage('Running Test'){
+        step{
+            script{
+                common = load "common.groovy"
+                common.updateGithubStatus("pending")
+                echo "test"
+            }
+        }
+
+        post{
+            always{
+                script{
+                    if("${currentBuild.currentResult}" == 'SUCCESS'){
+                        common.updateGithubStatus("success")
+                    }else{
+                        common.updateGithubStatus("failure")
+                    }
+                }
             }
         }
     }
+
 }
