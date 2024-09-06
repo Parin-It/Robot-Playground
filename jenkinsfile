@@ -3,7 +3,8 @@ pipeline{
 
     stages{
         stage('Running Test'){
-                        steps{
+            steps{
+                sh 'robot -d result TestCase.robot'
                 script{
                     common = load "common.groovy"
                     common.updateGithubStatus("pending")
