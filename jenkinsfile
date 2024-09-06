@@ -9,7 +9,7 @@ pipeline{
                 robot(
                     outputPath: './result',
                     outputFileName: 'output.xml',
-                    reportFilename: 'report.html',
+                    reportFileName: 'report.html',
                     logFileName: 'log.html',
                     disableArchiveOutput: false,
                     passThreshold: 100.0,
@@ -17,7 +17,7 @@ pipeline{
                     otherFiles: '*.png,*.jpg',
                     onlyCritical: false
                 )
-                
+
                 script{
                     common = load "common.groovy"
                     common.updateGithubStatus("pending")
